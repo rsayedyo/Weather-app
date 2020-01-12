@@ -1,0 +1,24 @@
+# Warning received after installing:
+
+{ Collecting Django
+Using cached https://files.pythonhosted.org/packages/a6/2b/fbd71ae0980c899c0df70779d36c5897a6b56518eb5942ddd53b0b969b30/Django-1.11.27-py2.py3-none-any.whl
+Requirement already satisfied: pytz in /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python (from Django) (2013.7)
+Installing collected packages: Django
+WARNING: The script django-admin is installed in '/Users/rana/Library/Python/2.7/bin' which is not on PATH.
+Consider adding this directory to PATH or, if you prefer to suppress this warning, use --no-warn-script-location.}
+
+# what happened is that django was installed in the path /System/Library/Frameworks/Python.framework/Versions/2.7/Extras/lib/python
+where The script django-admin was installed in '/Users/rana/Library/Python/2.7/bin
+
+# When you open a terminal session the PATH is the system PATH with is where the django was installed, thus it couldn't find django-admin. To fix this we have to add the location of django-admin to the $PATH and load it in our terminal session.
+
+# To test if this is working first try loading the $ to your terminal session. Then run a django-admin command (i.g create a project)
+$ PATH=$PATH:/Users/rana/Library/Python/2.7/bin
+$ django-admin startproject waetherApp
+# if those changes work, go ahead and add this new PATH to your shell profile (in my case it's bash so add to .bash_profile) so it's loaded to every terminal session.
+$ open ~/.bash_profile
+#in the text editor add those lines
+PATH=$PATH:/Users/rana/Library/Python/2.7/bin
+export PATH
+
+VOLA!
