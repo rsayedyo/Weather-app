@@ -4,21 +4,29 @@
 import requests
 # Create your views here.
 from django.shortcuts import render
-
-
+#entries where added to the DB in the from the admin dashboard, we need to query these entries in our view now
+from .models import City
 def index(request):
     url='http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=d6d7539a50e5354288a49c1c6f9e355b'
-    city='Toronto'
-    city_weather = requests.get(url.format(city)).json() #request the API data and convert the JSON to Python data types
-# Passing the data to index.html template
-# weather is a dictionary to hold the data: temp, description, and icon.
-    weather_info = {
-            'city' : city,
-            'temperature' : city_weather['main']['temp'],
-            'description' : city_weather['weather'][0]['description'],
-            'icon' : city_weather['weather'][0]['icon']
-        }
-# to pass weather_info dictionary to index.html template, we'll create a variable called context. This will be a dictionary that allows us to use its values inside of the template.
-    context = {'weather_info' : weather_info}
+    cities = City.objects.all()
+    weather_data = []
+
+    for city in cities:
+        try:
+            city_weather = requests.get(url.format(city)).json() #request the API data and convert the JSON to Python data types
+
+            weather_info = {
+                'city' : city,
+                'temperature' : city_weather['main']['temp'],
+                'description' : city_weather['weather'][0]['description'],
+                'icon' : city_weather['weather'][0]['icon']
+            }
+
+            weather_data.append(weather-info) #add the data for the current city into our list
+        except KeyError:
+            pass
+        except EXCEPTION as e:
+            pass
+    context = {'weather_data' : weather_data}
     ## views will take a request and return a template
     return render(request, 'weather/index.html', context) #returns the index.html template
