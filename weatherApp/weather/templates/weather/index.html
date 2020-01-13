@@ -21,18 +21,19 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-offset-4 is-4">
-                    <form method="POST">
-                        <div class="field has-addons">
-                            <div class="control is-expanded">
-                                <input class="input" type="text" placeholder="City Name">
-                            </div>
-                            <div class="control">
-                                <button class="button is-info">
-                                    Add City
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                  <form method="POST">
+                      {% csrf_token %}
+                      <div class="field has-addons">
+                          <div class="control is-expanded">
+                              {{ form.name }}
+                          </div>
+                          <div class="control">
+                              <button class="button is-info">
+                                  Add City
+                              </button>
+                          </div>
+                      </div>
+                  </form>
                 </div>
             </div>
         </div>
@@ -52,7 +53,7 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{weather_info.city}}</span>
+                                        <span class="title">{{weather_info.city_name}}</span>
                                         <br>
                                         <span class="subtitle">{{weather_info.temperature}}° C</span>
                                         <br> {{ weather_info.description }}

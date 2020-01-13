@@ -9,7 +9,7 @@ class City(models.Model):
 # This will create a table in our database that will have a column called name (a string)
     name = models.CharField(max_length=25)
 
-    def _str_(self): #show the actual city name on the dashboard
+    def __str_(self): #show the actual city name on the dashboard
         return self.name
 
     class Meta: #show the plural of city as cities instead of citys in the admin dashboard
